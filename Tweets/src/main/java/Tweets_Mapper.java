@@ -18,14 +18,14 @@ public class Tweets_Mapper {
         String line = value.toString();
         String[] tuple = line.split("\\n");
         try{
-            for(int i=0;i<tuple.length; i++){
-                JSONObject obj = new JSONObject(tuple[i]);
+            for (String s : tuple) {
+                JSONObject obj = new JSONObject(s);
                 _id = obj.getString("id");
                 _user_id = obj.getString("user_id");
                 _tweet_text = obj.getString("text");
                 _created_at = obj.getString("created_at");
                 _location = obj.getString("location");
-                context.write(Integer.parseInt(_user_id), Integer.parseInt(_id) +"\t" +  _created_at + "\t" + _location + "\t" + _tweet_text);
+                context.write(Integer.parseInt(_user_id), Integer.parseInt(_id) + "\t" + _created_at + "\t" + _location + "\t" + _tweet_text);
             }
         }catch(JSONException e){
             e.printStackTrace();
