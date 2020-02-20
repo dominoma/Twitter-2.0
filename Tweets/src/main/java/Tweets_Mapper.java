@@ -7,9 +7,9 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.json.*;
 
 
-public class Tweets_Mapper extends Mapper<Object, Text, Text, IntWritable> {
+public class Tweets_Mapper extends Mapper<Object, Text, Text, Text> {
 
-    public void map(LongWritable key, Text value, Mapper.Context context) throws IOException, InterruptedException {
+    public void map(Object key, Text value, Mapper.Context context) throws IOException, InterruptedException {
 
         String _user_id;
         String _id;
