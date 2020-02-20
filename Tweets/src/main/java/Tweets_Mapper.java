@@ -27,7 +27,7 @@ public class Tweets_Mapper extends Mapper<Object, Text, Text, Text> {
                 _tweet_text = obj.getString("text");
                 _created_at = obj.getString("created_at");
                 _location = obj.getString("location");
-                context.write(Integer.parseInt(_user_id), Integer.parseInt(_id) + "\t" + _created_at + "\t" + _location + "\t" + _tweet_text);
+                context.write(_user_id, _id);// + "\t" + _created_at + "\t" + _location + "\t" + _tweet_text);
             }
         } catch (JSONException e) {
             e.printStackTrace();

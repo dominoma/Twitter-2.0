@@ -19,12 +19,12 @@ public class Driver {
         job.setJarByClass(Driver.class);
 
         job.setMapperClass(Tweets_Mapper.class);
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(Text.class);
+        //job.setMapOutputKeyClass(Text.class);
+        //job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
-        job.setInputFormatClass(TextInputFormat.class);
-        job.setOutputFormatClass(TextOutputFormat.class);
+        //job.setInputFormatClass(TextInputFormat.class);
+        //job.setOutputFormatClass(TextOutputFormat.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
