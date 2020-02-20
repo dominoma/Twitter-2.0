@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
+final def var = dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
     compile group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '2.3.0'
@@ -21,6 +21,9 @@ dependencies {
     compile group: 'org.json', name: 'json', version: '20190722'
 // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
     compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.1'
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce
+    compile group: 'org.apache.hadoop', name: 'hadoop-mapreduce', version: '2.7.0', ext: 'pom'
 
 
 }
+var
