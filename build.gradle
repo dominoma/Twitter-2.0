@@ -10,7 +10,25 @@ sourceCompatibility = 1.8
 repositories {
     mavenCentral()
 }
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+jar {
+    manifest {
+        attributes 'Main-Class': "Twitter"
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
+final def var = dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-hdfs
+    compile group: 'org.apache.hadoop', name: 'hadoop-hdfs', version: '2.3.0'
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce-client-core
+    compile group: 'org.apache.hadoop', name: 'hadoop-mapreduce-client-core', version: '3.2.1'
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20190722'
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-client
+    compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.1'
+// https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-mapreduce
+    compile group: 'org.apache.hadoop', name: 'hadoop-mapreduce', version: '2.7.0'
+
+
+}
+var
