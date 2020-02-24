@@ -28,19 +28,27 @@ public class Twitter {
 
         public void map(Object key, Text value, Context context
         ) throws IOException, InterruptedException {
-            StringTokenizer itr = new StringTokenizer(value.toString(), "\n");
+            StringTokenizer itr = new StringTokenizer(value.toString(), "\r\n");
             while (itr.hasMoreTokens()) {
-                final JSONObject json = new JSONObject(itr.nextToken());
-                final JSONArray hashtags = json.getJSONObject("entities").getJSONArray("hashtags");
-                final String timestamp = json.getString("timestamp_ms");
-                final Date date = new Date(Integer.valueOf(timestamp, 10));
-                final String dateStr = dateFormat.format(date);
+                final String jsonStr = itr.nextToken();
+                final JSONObject json = new JSONObject(jsonStr);
+                final JSONObject entities = json.optJSONObject("entities");
+                final String timestamp = json.optString("timestamp_ms");
+                if(entities != null && timestamp != null) {
+                    final JSONArray hashtags = entities.optJSONArray("hashtags");
+                    if(hashtags != null) {
+                        final Date date = new Date(Long.valueOf(timestamp, 10));
+                        final String dateStr = dateFormat.format(date);
 
-                for(int i = 0;i<hashtags.length();i++) {
-                    final JSONObject hashtag = hashtags.getJSONObject(i);
-                    final String hashtagStr = hashtag.getString("text").toLowerCase();
-                    hashtagDatePair.set(dateStr + "|" + hashtagStr);
-                    context.write(hashtagDatePair, one);
+                        for (int i = 0; i < hashtags.length(); i++) {
+                            final JSONObject hashtag = hashtags.getJSONObject(i);
+                            final String hashtagStr = hashtag.getString("text").toLowerCase();
+                            hashtagDatePair.set(dateStr + "|" + hashtagStr);
+                            context.write(hashtagDatePair, one);
+                            hashtagDatePair.set("altogether|" + hashtagStr);
+                            context.write(hashtagDatePair, one);
+                        }
+                    }
                 }
             }
         }
